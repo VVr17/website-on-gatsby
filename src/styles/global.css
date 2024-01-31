@@ -19,6 +19,24 @@ body {
   );
   background-repeat: no-repeat;
 }
+
+ul,
+li,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  list-style: none;
+}
+
 p {
   margin: 16px auto;
   line-height: 1.5em;
@@ -28,19 +46,27 @@ p {
 .layout {
   max-width: 1200px;
   margin: 0 auto;
+  padding-left: 24px;
+  padding-right: 24px;
 }
+
+.layout .logo {
+  max-width: fit-content;
+}
+
 nav {
   display: grid;
   grid-template-columns: 1fr 1fr;
   margin: 40px auto;
 }
 nav .links {
-  display: inline-block;
-  text-align: right;
+  display: inline-flex;
+  gap: 2em;
+  justify-content: end;
+  align-items: center;
 }
 nav a {
   display: inline-block;
-  margin-left: 20px;
   font-weight: 400;
   padding-bottom: 8px;
   border-bottom: 3px solid transparent;
@@ -48,6 +74,7 @@ nav a {
 nav a:hover {
   border-color: white;
 }
+
 footer p {
   text-align: center;
   color: #bbb;

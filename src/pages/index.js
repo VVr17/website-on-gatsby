@@ -1,11 +1,13 @@
 import * as React from 'react';
-import PropTypes from 'prop-types';
+import Img from 'gatsby-image';
 import { Link, graphql } from 'gatsby';
+import PropTypes from 'prop-types';
+
 import Layout from '../components/Layout';
 import * as styles from '../styles/home.module.css';
 
-export default function Home({ data }) {
-  const { description, title } = data.site.siteMetadata;
+const Home = ({ data }) => {
+  const { fluid } = data.file.childImageSharp;
 
   return (
     <Layout>
@@ -18,18 +20,20 @@ export default function Home({ data }) {
             My Portfolio Projects
           </Link>
         </div>
-        <img src="/banner.png" alt="site banner" style={{ maxWidth: '100%' }} />
+        <Img fluid={fluid} />
       </section>
     </Layout>
   );
-}
+};
 
+// Get Banner image using Fragment "GatsbyImageSharpFluid"
 export const query = graphql`
-  query SiteInfo {
-    site {
-      siteMetadata {
-        description
-        title
+  query Banner {
+    file(relativePath: { eq: "banner.png" }) {
+      childImageSharp {
+        fluid {
+          ...GatsbyImageSharpFluid
+        }
       }
     }
   }
@@ -37,11 +41,17 @@ export const query = graphql`
 
 Home.propTypes = {
   data: PropTypes.shape({
-    site: PropTypes.shape({
-      siteMetadata: PropTypes.shape({
-        description: PropTypes.string,
-        title: PropTypes.string,
+    file: PropTypes.shape({
+      childImageSharp: PropTypes.shape({
+        fluid: PropTypes.shape({
+          aspectRatio: PropTypes.number,
+          base64: PropTypes.string,
+          src: PropTypes.string,
+          srcSet: PropTypes.string,
+        }),
       }),
     }),
   }),
 };
+
+export default Home;
